@@ -1,0 +1,134 @@
+Microsoft (R) Macro Assembler Version 5.10                  1/17/20 17:32:14
+                                                             Page     1-1
+
+
+				;==============================================
+				=================
+				; AUTHOR: Muhammad Ahmad Hesham Mahmoud
+				; DATE: 17/1/2020
+				;==============================================
+				=================
+				
+				EXTRN DATA : BYTE
+				
+				EXTRN SOUND: FAR
+				
+				INCLUDE RANDOM.INC
+			     C	;----------------------------------------------
+				-------------------------------
+			     C	;  MACRO TO GET RANDOM NUMBER WITHIN A PROVIDED
+				 RANGE 
+			     C	;----------------------------------------------
+				-------------------------------
+			     C	RANDOMIZE MACRO LOWER, UPPER, NUMBER, SEED 
+			     C	LOCAL SET, NODIVISION
+			     C	   PUSH     AX
+			     C	   PUSH     BX
+			     C	   PUSH     CX
+			     C	   PUSH     DX
+			     C	
+			     C	   MOV     AX, 25173          ; LCG MULTIPLIER 
+			     C	   MUL     WORD PTR SEED      ;DX:AX = LCG MULT
+				IPLIER * SEED
+			     C	   ADD     AX, 13849          ; ADD LCG INCREME
+				NT VALUE
+			     C	   ; MODULO 65536, AX = (MULTIPLIER*SEED+INCREM
+				ENT) MOD 65536
+			     C	   CMP     SEED, AX
+			     C	   JNE     SET
+			     C	   MOV     AH, 0
+			     C	   INT     1AH
+			     C	   MOV     SEED, DX    ; SEED WITH THE SYSTEM T
+				IME
+			     C	   
+			     C	   SET:
+			     C	   MOV     SEED, AX          ; UPDATE SEED = RE
+				TURN VALUE
+			     C	
+			     C	   SUB      DX, DX
+			     C	   MOV      CX, UPPER
+			     C	   INC      CX
+			     C	   SUB      CX, LOWER 
+			     C	   CMP CX, 0 
+			     C	   JE NODIVISION
+			     C	   DIV      CX     ;THIS DIVIDES AX/CX AND THE 
+				REMAINDER IS AT DX(NUMBER WITHIN RANGE OF THE S
+				UBTRACTION UPPER - LOWER)
+			     C	   NODIVISION:
+			     C	   ADD      DX, LOWER
+Microsoft (R) Macro Assembler Version 5.10                  1/17/20 17:32:14
+                                                             Page     1-2
+
+
+			     C	   MOV      NUMBER, DX
+			     C	
+			     C	   POP      DX
+			     C	   POP      CX
+			     C	   POP      BX
+			     C	   POP      AX
+			     C	ENDM RANDOMIZE
+				
+				.368
+main.ASM(12): error A2105: Expected: instruction, directive, or label
+				.MODEL   LARGE
+				;----------------------------------------------
+				--------
+				.STACK 1024   ;1024 BYTES FOR STACK      
+				;----------------------------------------------
+				--------                    
+				.DATA             
+ 0000				_DATA segment 'DATA'
+main.ASM(17): error A2015: Symbol already different kind: DATA
+				
+				.CODE                                        
+ 0000				MAIN  PROC FAR        
+ 0000  B8 ---- R		   MOV     AX,@DATA   
+ 0003  8E D8			   MOV     DS,AX        
+ 0005				MAIN ENDP
+				;---------------------------------------
+				
+				END MAIN 
+
+Microsoft (R) Macro Assembler Version 5.10                  1/17/20 17:32:14
+                                                             Symbols-1
+
+
+Macros:
+
+		N a m e			Lines
+
+RANDOMIZE  . . . . . . . . . . .  	  29
+
+Segments and Groups:
+
+                N a m e         	Length	 Align	Combine Class
+
+DGROUP . . . . . . . . . . . . .  	GROUP
+  _DATA  . . . . . . . . . . . .  	0000	WORD	PUBLIC	'DATA'
+  STACK  . . . . . . . . . . . .  	0400	PARA	STACK	'STACK'
+MAIN_TEXT  . . . . . . . . . . .  	0005	WORD	PUBLIC	'CODE'
+
+Symbols:            
+
+                N a m e         	Type	 Value	 Attr
+
+MAIN . . . . . . . . . . . . . .  	F PROC	0000	MAIN_TEXT	Length = 0005
+
+SOUND  . . . . . . . . . . . . .  	L FAR 	0000		External
+
+@CODE  . . . . . . . . . . . . .  	TEXT  main_TEXT		
+@CODESIZE  . . . . . . . . . . .  	TEXT  1		
+@CPU . . . . . . . . . . . . . .  	TEXT  0101h		
+@DATASIZE  . . . . . . . . . . .  	TEXT  1		
+@FILENAME  . . . . . . . . . . .  	TEXT  main		
+@VERSION . . . . . . . . . . . .  	TEXT  510		
+
+
+     65 Source  Lines
+     65 Total   Lines
+     20 Symbols
+
+  47936 + 457274 Bytes symbol space free
+
+      0 Warning Errors
+      2 Severe  Errors
