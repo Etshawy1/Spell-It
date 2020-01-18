@@ -1,0 +1,19 @@
+Turbo Debugger - 
+
+Installation Notes
+
+This program will run directly off the CD, but to save or modify
+any information it must be copied to your Hard Drive.
+
+Make a directory on your Hard Drive and then copy the contents of
+the d:\borland\tdebug\ directory to the directory you just made...
+
+Example:
+
+d:\borland\tdebug>copy *.* c:\tdebug [press enter]
+
+Now run TD.EXE from your hard drive...
+
+Thats it!
+
+-s9
