@@ -1,12 +1,10 @@
 ;-----------------------------------------------------------------------------
+;  ADAPTED CODE FROM: https://stackoverflow.com/questions/40698309/assembly-random-numbers-generator
 ;  MACRO TO GET RANDOM NUMBER WITHIN A PROVIDED RANGE 
 ;-----------------------------------------------------------------------------
 RANDOMIZE MACRO LOWER, UPPER, NUMBER, SEED 
 LOCAL SET, NODIVISION
-   PUSH     AX
-   PUSH     BX
-   PUSH     CX
-   PUSH     DX
+   PUSHA
 
    MOV     AX, 25173          ; LCG MULTIPLIER 
    MUL     WORD PTR SEED      ;DX:AX = LCG MULTIPLIER * SEED
@@ -32,8 +30,5 @@ LOCAL SET, NODIVISION
    ADD      DX, LOWER
    MOV      NUMBER, DX
 
-   POP      DX
-   POP      CX
-   POP      BX
-   POP      AX
+   POPA
 ENDM RANDOMIZE
