@@ -1,6 +1,6 @@
 # Spell-It
 
-assembly game to teach the spelling of some basic words in a fun way
+assembly 8086 game to teach the spelling of some basic words for kids in a fun way
 
 
 ## Getting Started
@@ -9,8 +9,7 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Prerequisites
 
-you just need to download **dosbox** version based on your machine from here 
-
+you just need to download the **dosbox** version suitable for your machine from here 
 
 [![alt text](https://upload.wikimedia.org/wikipedia/commons/d/dd/DOSBox_icon.png "dosbox")](https://www.dosbox.com/download.php?main=1 "dosbox")
 
@@ -47,13 +46,17 @@ click with the mouse to choose the desired level
 ![levels](./Screenshots/levels.PNG)
 
 ```
-use left and right arrows to move the basket and catch the right falling letters before time ends
-when you collect the whole word letters you win the game and get redirected to choose another level
+use left and right arrows to move the basket and catch , before time ends, the right falling 
+letters in the correct order that forms the word representing the photo. 
+when you collect the whole word letters you win the level and get redirected to choose
+another level.
 ```
 ![levels](./Screenshots/gameplay.PNG)
 
 
 *note that completed levels can't be repeated unless you reopen the game*
+
+*the game has sound so to have the full experience you should increase the volume*
 
 
 
