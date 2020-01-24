@@ -2,11 +2,11 @@
 ;===============================================================
 ; AUTHOR: Muhammad Ahmad Hesham Mahmoud
 ; DATE: 17/1/2020
+; BONUS TASK ASSEMBLY 
 ;===============================================================
 
-;EXTRN BITMAP_LEFT_PLAYER2 : BYTE
 
-;EXTRN SOUND: FAR
+EXTRN SOUNDPLAY: FAR
 
 INCLUDE RANDOM.INC
 INCLUDE PRINTNUM.INC
@@ -4778,14 +4778,8 @@ DB 0, 0, 0, 0, 0
 
 DATAWELCOME ENDS                                                     
 
-SOUND SEGMENT PARA 'DATA'  
+CONGRATING SEGMENT PARA 'DATA'  
 
-Filename DB 'cheering.wav', 0
-Filehandle DW ?
-filesize equ 29456
-sounddata DB filesize dup(0)    
-last_time dd 0
-voc_index dw 0
 
 ; ██████╗███╗   ██╗ ██████╗ ██████╗ ████████╗███████╗
 ;██╔════╝████╗  ██║██╔════╝ ██╔══██╗╚══██╔══╝██╔════╝
@@ -5517,7 +5511,7 @@ DB 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 9
 DB 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90
 DB 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90, 90
 
-SOUND ENDS 
+CONGRATING ENDS 
 
 ;█████╗█████╗█████╗█████╗█████╗█████╗█████╗█████╗█████╗
 ;╚════╝╚════╝╚════╝╚════╝╚════╝╚════╝╚════╝╚════╝╚════╝
@@ -5551,6 +5545,13 @@ MAIN  PROC FAR
     ASSUME DS:DATA1
     MOV AX, DATA1   
     MOV DS,AX
+
+    ;{SEED WITH THE SYSTEM TIME FOR RANDOMIZATION PURPOSES
+    MOV     AH, 0
+    INT     1AH
+    MOV     RANDSEED, DX   
+    ;}
+
     GAME_LOOP:
     CALL LEVELS
     CALL CHOOSE_WORD
@@ -6778,6 +6779,13 @@ DRAW_TRANSPARENT ENDP
 
 
 
+;██╗    ██╗██╗███╗   ██╗███╗   ██╗██╗███╗   ██╗ ██████╗ 
+;██║    ██║██║████╗  ██║████╗  ██║██║████╗  ██║██╔════╝ 
+;██║ █╗ ██║██║██╔██╗ ██║██╔██╗ ██║██║██╔██╗ ██║██║  ███╗
+;██║███╗██║██║██║╚██╗██║██║╚██╗██║██║██║╚██╗██║██║   ██║
+;╚███╔███╔╝██║██║ ╚████║██║ ╚████║██║██║ ╚████║╚██████╔╝
+; ╚══╝╚══╝ ╚═╝╚═╝  ╚═══╝╚═╝  ╚═══╝╚═╝╚═╝  ╚═══╝ ╚═════╝ 
+                                                       
 
 ;-------------------------------------------------------------
 ;PROCEDURE TO CHECK IF THE PLAYER WON THE GAME
@@ -6794,17 +6802,25 @@ CHECK_WIN PROC FAR
     MOV [PASSED + EBX],BYTE PTR 1  ;PUT A FLAG ON THE WORD IN ORDER NOT TO MAKE IT PLAYABLE AGAIN
     ;}
     MOV PASSED_LEVEL, 1   ;FLAG TO BREAK THE LEVEL LOOP
+
     CALL FAR PTR CONGRATULATIONS
 
+    ;{RETURN TO NORMAL DATA SEGMENT
     ASSUME DS:DATA1
     MOV AX, DATA1   
-    MOV DS,AX
+    MOV DS,AX   
+    ;}
     END_CHECKWIN:
     POPA
     RETF
 ;} 
 CHECK_WIN ENDP
 
+
+;------------------------------------------------------------
+; PROCEDURES SHOWS THE WORD WITH THE PICTURE AND CALL
+; AN EXTERNAL PROCEDURE THAT PLAYS CELEBRATION SOUND
+;------------------------------------------------------------
 
 CONGRATULATIONS PROC FAR
     PUSHA
@@ -6814,15 +6830,14 @@ CONGRATULATIONS PROC FAR
         ;{ DRAW THE SHAPE OF THE CURRENT WORD  
         MOV DI, 30  ;WIDTH 
         MOV BX, 30  ;HEIGHT
-        ;{TO CHOOSE THE WRITE BITMAP
-        MOV BP, 900
-        MOV DX, 0
-        MOV AL, WORD_CHOSEN
-        MUL BP
-        LEA SI, WORD_A
-        ADD SI, AX 
-        
-        ;}
+            ;{TO CHOOSE THE WRITE BITMAP
+            MOV BP, 900
+            MOV DX, 0
+            MOV AL, WORD_CHOSEN
+            MUL BP
+            LEA SI, WORD_A
+            ADD SI, AX 
+            ;}
         MOV CX, 135 ;X START POSITION
         MOV DX, 20  ;Y START POSITION
         CALL DRAW_OBJECT
@@ -6838,32 +6853,28 @@ CONGRATULATIONS PROC FAR
         INT 21H 
         ;}
 
-        ASSUME DS:SOUND
-        MOV AX, SOUND   
+        ASSUME DS:CONGRATING
+        MOV AX, CONGRATING   
         MOV DS,AX
-        ;{ DRAW A CELEBRATION PICTURE 
+        ;{ DRAW A CELEBRATION PICTURE AND CALLS SOUND 
         
         CALL FAR PTR DRAW_OBJECT2
+        CALL FAR PTR SOUNDPLAY
         ;}
-
-
+        
         ASSUME DS:DATA1
         MOV AX, DATA1   
         MOV DS,AX
-        ;{4 SECONDS DELAY
-        DELAY_LOOP:
-        MOV AH, 2CH
-        INT 21H
-        SUB DH, PREV_SYS_SECOND
-        CMP DH, 4
-        JNE  DELAY_LOOP
-        ;}
 
         
     POPA
     RETF
 CONGRATULATIONS ENDP
 
+
+;------------------------------------------------------------
+; THIS PROCEDURE DRAWS A CELEBRATING OCTOPUS :D
+;-----------------------------------------------------------
 
 DRAW_OBJECT2 PROC FAR 
 ;{
@@ -6872,7 +6883,7 @@ DRAW_OBJECT2 PROC FAR
     MOV BX, 120  ;HEIGHT
     LEA SI, CONGRATS
     MOV CX, 95 ;X START POSITION
-    MOV DX, 75  ;Y START POSITION
+    MOV DX, 70  ;Y START POSITION
    MOV     AH, 0CH    ; AH=0CH IS BIOS.WRITEPIXEL
    OUTERLOOP4:;{ FOR(BP = 50; BD > 0; BP--)
       PUSH CX
@@ -6893,5 +6904,8 @@ DRAW_OBJECT2 PROC FAR
       RETF
 ;} 
 DRAW_OBJECT2 ENDP
+
+
+
 
 END MAIN 
