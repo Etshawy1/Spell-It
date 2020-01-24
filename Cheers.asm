@@ -4,7 +4,7 @@ PUBLIC SOUNDPLAY
 .386
 DATA5 SEGMENT PARA 'DATA'
 
-Filename DB 'cheering.wav', 0  
+Filename DB 'cheers.wav', 0  
 Filehandle DW ?
 filesize equ 29456
 sounddata DB filesize dup(0)   
