@@ -9,7 +9,8 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Prerequisites
 
-you just need to download **dosbox** version based on your machine from here [![alt text](https://upload.wikimedia.org/wikipedia/commons/d/dd/DOSBox_icon.png "dosbox")](https://www.dosbox.com/download.php?main=1 "dosbox")
+you just need to download **dosbox** version based on your machine from here 
+[![alt text](https://upload.wikimedia.org/wikipedia/commons/d/dd/DOSBox_icon.png "dosbox")](https://www.dosbox.com/download.php?main=1 "dosbox")
 
 
 
@@ -36,18 +37,18 @@ build
 ```
 click with the mouse to choose the desired difficulty
 ```
-![homepage](/Screenshots/home.PNG)
+![homepage](./Screenshots/home.PNG)
 
 ```
 click with the mouse to choose the desired level
 ```
-![levels](/Screenshots/levels.PNG)
+![levels](./Screenshots/levels.PNG)
 
 ```
 use left and right arrows to move the basket and catch the right falling letters before time ends
 when you collect all the words you win the game and get redirected to choose another level
 ```
-![levels](/Screenshots/gameplay.PNG)
+![levels](./Screenshots/gameplay.PNG)
 
 
 *note that completed levels can't be repeated unless you reopen the game*
