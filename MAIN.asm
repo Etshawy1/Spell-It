@@ -6838,7 +6838,6 @@ LEVEL_LOGIC PROC NEAR
     
     ;{ LEVEL INITIALIZATIONS
         MOV PREV_SYS_SECOND,0 ;STORE THE PREVIOUS SYSTEM TIME TO CHECK IF A SECOND PASSED
-        MOV TIME, 120         ;SET THE REMAINING TIME SECONDS
         MOV PASSED_LEVEL, 0   ;
         MOV EXISTS_LETTER1, 0
         MOV EXISTS_LETTER2, 0
@@ -6856,6 +6855,21 @@ LEVEL_LOGIC PROC NEAR
         MOV CX, [BX]
         MOV CH, 0
         ;}
+
+        ;{PUT INITIAL RESONABLE TIME DEPENDING ON THE LENGTH OF THE WORD
+        MOV AX, CX
+        MOV BL, 10
+        MUL BL
+        MOV TIME, AX
+        CMP LETTERS_SPEED, 2
+        JE EASYGAME
+        ADD TIME, 25
+        JMP CONTINUE_INITIALIZE
+        EASYGAME:
+        ADD TIME, 15
+        ;}
+
+        CONTINUE_INITIALIZE:
         LEA SI, PLAYER_CURRENT_WORD
         INIALIZE_WORD:
         ;{
@@ -7858,14 +7872,14 @@ CONGRATULATIONS PROC FAR
             LEA SI, WORD_A
             ADD SI, AX 
             ;}
-        MOV CX, 135 ;X START POSITION
+        MOV CX, 115 ;X START POSITION
         MOV DX, 20  ;Y START POSITION
         CALL DRAW_OBJECT
         ;}
 
         ;{PRINT THE CURRENT WORD OF THE USER
         MOV AH, 2   
-        MOV DL, 22
+        MOV DL, 19
         MOV DH, 5
         INT 10H
         MOV AH, 9
