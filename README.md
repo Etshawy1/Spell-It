@@ -68,7 +68,7 @@ when you collect the whole word letters you win the game and get redirected to c
 
 ## License
 
-Licensed under the [MIT License](./LICENSE).
+Licensed under the [MIT License](./License).
 
 ## Acknowledgments
 
