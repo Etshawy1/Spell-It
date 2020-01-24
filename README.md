@@ -36,18 +36,18 @@ build
 ```
 click with the mouse to choose the desired difficulty
 ```
-![homepage](/screenshots/home.png)
+![homepage](/Screenshots/home.PNG)
 
 ```
 click with the mouse to choose the desired level
 ```
-![levels](/screenshots/levels.png)
+![levels](/Screenshots/levels.PNG)
 
 ```
 use left and right arrows to move the basket and catch the right falling letters before time ends
 when you collect all the words you win the game and get redirected to choose another level
 ```
-![levels](/screenshots/levels.png)
+![levels](/Screenshots/gameplay.PNG)
 
 
 *note that completed levels can't be repeated unless you reopen the game*
