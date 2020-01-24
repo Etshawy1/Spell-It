@@ -5,6 +5,9 @@ If not exist main.asm goto end
 If not exist succ.asm echo succ File Does Not Exist
 If not exist succ.asm goto end
 
+If not exist time.asm echo succ File Does Not Exist
+If not exist time.asm goto end
+
 If not exist intro.asm echo intro File Does Not Exist
 If not exist intro.asm goto end
 
@@ -19,6 +22,10 @@ If exist game.exe erase game.exe
 If exist main.obj erase main.obj
 If exist main.exe erase main.exe
 If exist main.lst erase main.lst
+
+If exist time.obj erase time.obj
+If exist time.exe erase time.exe
+If exist time.lst erase time.lst
 
 If exist succ.obj erase succ.obj
 If exist succ.exe erase succ.exe
@@ -41,6 +48,9 @@ If exist sad.exe erase sad.lst
 masm cheers,cheers,cheers ;
 If not exist cheers.obj goto end
 
+masm time, time, time ;
+If not exist time.obj goto end
+
 masm intro, intro, intro;
 If not exist cheers.obj goto end
 
@@ -55,7 +65,7 @@ masm main,main,main ;
 If not exist main.obj goto end
 
 
-link  main.obj + cheers.obj + intro.obj + sad.obj + succ.obj, game;
+link  main.obj + cheers.obj + intro.obj + sad.obj + succ.obj + time.obj, game;
 If not exist game.exe goto end
 
 game.exe
