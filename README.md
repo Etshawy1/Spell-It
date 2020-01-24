@@ -10,6 +10,8 @@ These instructions will get you a copy of the project up and running on your loc
 ### Prerequisites
 
 you just need to download **dosbox** version based on your machine from here 
+
+
 [![alt text](https://upload.wikimedia.org/wikipedia/commons/d/dd/DOSBox_icon.png "dosbox")](https://www.dosbox.com/download.php?main=1 "dosbox")
 
 
@@ -46,7 +48,7 @@ click with the mouse to choose the desired level
 
 ```
 use left and right arrows to move the basket and catch the right falling letters before time ends
-when you collect all the words you win the game and get redirected to choose another level
+when you collect the whole word letters you win the game and get redirected to choose another level
 ```
 ![levels](./Screenshots/gameplay.PNG)
 
@@ -66,9 +68,9 @@ when you collect all the words you win the game and get redirected to choose ano
 
 ## License
 
-Licensed under the [MIT License](LICENSE).
+Licensed under the [MIT License](./LICENSE).
 
 ## Acknowledgments
 
-* this repo helped me alot to integrate sound into the game https://github.com/leonardo-ono/Assembly8086SBHardwareLevelDspProgrammingTest
+* this repo helped me a lot to integrate sound into the game https://github.com/leonardo-ono/Assembly8086SBHardwareLevelDspProgrammingTest
 
