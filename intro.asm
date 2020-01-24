@@ -1,38 +1,37 @@
-PUBLIC SOUNDPLAY
+PUBLIC SOUNDPLAY_INTRO
 
 .Model LARGE 
 .386
-DATA5 SEGMENT PARA 'DATA'
+intro SEGMENT PARA 'DATA'
 
-Filename DB 'cheering.wav', 0  
+Filename DB 'intro.wav', 0  
 Filehandle DW ?
-filesize equ 29456
+filesize equ 33850
 sounddata DB filesize dup(0)   
 last_time dd 0
 voc_index dw 0   ;TO KEEP TRACK OF THE PLAYED SAMPLES TO KNOW THE NEXT AUDIO SAMPLE TO PLAY 
 LOADED DB 0		;FLAG TO NOT LOAD THE SOUND FILE MULTIPLE TIMES WHEN THE SOUND FUNCTION CALLED MULTIPLE TIMES
 
-DATA5 ENDS
+intro ENDS
 
 
 .Code
 
 ;-------------------------------------------------------------------------------------------------------------------------
-; THE CONCEPT OF THIS CODE IS ADAPTED FROM: https://github.com/leonardo-ono/Assembly8086SBHardwareLevelDspProgrammingTest
+; THE CONCEPT OF PLAYING SOUND CODE IS ADAPTED FROM: https://github.com/leonardo-ono/Assembly8086SBHardwareLevelDspProgrammingTest
 ; HE USED NASM NOT MASM SO PUTTING THE CODE TOGETHER TO MAKE IT WORK WAS NOT AN EASY TASK
 ;--------------------------------------------------------------------------------------------------------------------------
-SOUNDPLAY PROC FAR
+SOUNDPLAY_INTRO PROC FAR
     
-	ASSUME DS:DATA5
-    MOV AX , DATA5
+	ASSUME DS:intro
+    MOV AX , intro
     MOV DS , AX
 	MOV WORD PTR DS:VOC_INDEX, 0
     CALL FAR PTR SOUNDS
 	MOV DS:LOADED, 1
-    ; return control to operating system
     RETF
     
-SOUNDPLAY ENDP
+SOUNDPLAY_INTRO ENDP
    
 
 SOUNDS PROC FAR
@@ -109,6 +108,12 @@ SOUNDS ENDP
 ;
 ;=========================================================================================
 
+
+;------------------------------------------------------------------------------------------------------------
+;  file handling procedures
+; credit: https://gist.github.com/3omar-mostafa/5da7ac824fa84a40706a8aebdd6b22d2
+;------------------------------------------------------------------------------------------------------------
+
 OPENFILE PROC FAR
 
     MOV AH, 3DH
@@ -169,9 +174,9 @@ START_NORMAL_CLOCK PROC FAR
     OUT 43H, AL
    
 
-    MOV AL,  040H; LOW 2AH
+    MOV AL,  040H
     OUT 40H, AL
-    MOV AL, 0FCH ; HIGH 01H
+    MOV AL, 0FCH 
     OUT 40H, AL
     STI
     RETF 
@@ -280,7 +285,7 @@ CLRBUFFR		PROC FAR
 CLRBUFFR		ENDP 
 
 
-    end SOUNDPLAY                           
+    end SOUNDPLAY_INTRO                           
     
     
     
