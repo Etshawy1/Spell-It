@@ -6975,7 +6975,7 @@ LEVEL_LOGIC PROC NEAR
         CALL DRAW_LETTER2
         CALL DRAW_LETTER3
         
-        ;{ DELAY 0.125 SECOND  WHERE DELAY IN MELLISECOND IS CXDX  CX AND MSB AND DX AS LSB
+        ;{ DELAY fractions of a SECOND  WHERE DELAY IN MELLISECOND IS CXDX  CX AND MSB AND DX AS LSB
             MOV     CX, 00H
             MOV     DX, 0C350H
             MOV     AH, 86H
@@ -7079,7 +7079,7 @@ CHECK_HIT_LETTER1 PROC NEAR
     PUSHA
     CMP STARTPOS_Y_LETTER1, 140
     JL NO_COLL1
-      ;{IF LETTER2 HITS BOUNDARIES -> EXISTS = 0
+      ;{IF LETTER1 HITS BOUNDARIES -> EXISTS = 0
         CMP EXISTS_LETTER1,0
         JE NO_COLL1
 
@@ -7261,7 +7261,7 @@ CHECK_HIT_LETTER3 PROC NEAR
     PUSHA
     CMP STARTPOS_Y_LETTER3, 140
     JL NO_COLL3
-      ;{IF LETTER2 HITS BOUNDARIES -> EXISTS = 0
+      ;{IF LETTER3 HITS BOUNDARIES -> EXISTS = 0
         CMP EXISTS_LETTER3,0
         JE NO_COLL3
 
@@ -7687,10 +7687,10 @@ DRAW_OBJECT PROC NEAR
 ;{
     PUSHA
    MOV     AH, 0CH    ; AH=0CH IS BIOS.WRITEPIXEL
-   OUTERLOOP:;{ FOR(BP = 50; BD > 0; BP--)
+   OUTERLOOP:;{
       PUSH CX
       PUSH DI
-      INNERLOOP:;{ FOR(DX = 50; DX > 0; DX--)
+      INNERLOOP:;{ 
          LODSB              ; FETCH COLOR FOR THIS PIXEL
          INT     10H
          INC     CX         ; NEXT X POSITION
@@ -7711,10 +7711,10 @@ DRAW_BLANK PROC NEAR
 ;{
     PUSHA
     MOV     AH, 0CH    ; AH=0CH IS BIOS.WRITEPIXEL
-    OUTERLOOP2:;{ FOR(BP = 50; BD > 0; BP--)
+    OUTERLOOP2:;{ 
         PUSH CX
         PUSH DI
-        INNERLOOP2:;{ FOR(DX = 50; DX > 0; DX--)
+        INNERLOOP2:;{ 
             MOV AL, 0              ; FETCH COLOR FOR THIS PIXEL
             INT     10H
             INC     CX         ; NEXT X POSITION
@@ -7739,10 +7739,10 @@ DRAW_TRANSPARENT PROC NEAR
     MOV BP, BX
     MOV BL, [SI]
 
-    OUTERLOOP3:;{ FOR(BP = 50; BD > 0; BP--)
+    OUTERLOOP3:;{ 
         PUSH CX
         PUSH DI
-        INNERLOOP3:;{ FOR(DX = 50; DX > 0; DX--)
+        INNERLOOP3:;{ 
             LODSB              ; FETCH COLOR FOR THIS PIXEL
             CMP AL, BL
             JE TRANSPARENT
@@ -7792,7 +7792,7 @@ LOSETIME PROC FAR
         INT     15H
     ;}
 
-    ;{RETURN TO NORMAL DATA SEGMENT
+    ;{
     ASSUME DS:TIMEUP
     MOV AX, TIMEUP   
     MOV DS,AX   
@@ -7864,7 +7864,7 @@ CONGRATULATIONS PROC FAR
         ;{ DRAW THE SHAPE OF THE CURRENT WORD  
         MOV DI, 30  ;WIDTH 
         MOV BX, 30  ;HEIGHT
-            ;{TO CHOOSE THE WRITE BITMAP
+            ;{TO CHOOSE THE RIGHT BITMAP
             MOV BP, 900
             MOV DX, 0
             MOV AL, WORD_CHOSEN
@@ -7919,10 +7919,10 @@ DRAW_OBJECT2 PROC FAR
     MOV CX, 95 ;X START POSITION
     MOV DX, 70  ;Y START POSITION
    MOV     AH, 0CH    ; AH=0CH IS BIOS.WRITEPIXEL
-   OUTERLOOP4:;{ FOR(BP = 50; BD > 0; BP--)
+   OUTERLOOP4:;{ 
       PUSH CX
       PUSH DI
-      INNERLOOP4:;{ FOR(DX = 50; DX > 0; DX--)
+      INNERLOOP4:;{ 
          LODSB              ; FETCH COLOR FOR THIS PIXEL
          INT     10H
          INC     CX         ; NEXT X POSITION
@@ -7941,7 +7941,7 @@ DRAW_OBJECT2 ENDP
 
 
 ;------------------------------------------------------------
-; THIS PROCEDURE DRAWS A CELEBRATING OCTOPUS :D
+; THIS PROCEDURE DRAWS A TIME UP SAD OCTOPUS :(
 ;-----------------------------------------------------------
 
 DRAW_OBJECT3 PROC FAR 
@@ -7953,10 +7953,10 @@ DRAW_OBJECT3 PROC FAR
     MOV CX, 100 ;X START POSITION
     MOV DX, 25  ;Y START POSITION
    MOV     AH, 0CH    ; AH=0CH IS BIOS.WRITEPIXEL
-   OUTERLOOP5:;{ FOR(BP = 50; BD > 0; BP--)
+   OUTERLOOP5:;{ 
       PUSH CX
       PUSH DI
-      INNERLOOP5:;{ FOR(DX = 50; DX > 0; DX--)
+      INNERLOOP5:;{ 
          LODSB              ; FETCH COLOR FOR THIS PIXEL
          INT     10H
          INC     CX         ; NEXT X POSITION
